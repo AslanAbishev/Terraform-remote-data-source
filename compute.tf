@@ -1,23 +1,8 @@
 data "aws_ami" "amazon_linux" {
   most_recent = true
   owners      = ["amazon"]
-
-  filter {
-    name   = "name"
-    values = ["al2023-ami-2023.*-x86_64"]
-  }
-
-  filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
+  name_regex  = "^al2023-ami-2023.*-x86_64$"
 }
-
 
 resource "aws_instance" "main" {
   ami           = data.aws_ami.amazon_linux.id
